@@ -56,15 +56,37 @@ class Blog{
 
 
   }
+  
+  public function getBlogById(int $blogId){
 
-  public function updateBlog(){
+    try{
+      $stmt = $this->conn->prepare("SELECT * FROM blogs WHERE id = ?");
+      $stmt->execute([$blogId]);
+      return $stmt->fetch(PDO::FETCH_OBJ);
+    }catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
 
+
+  }
+
+
+  public function updateBlog(int $id,string $title, string $content, string $overview){
+
+    try{
+
+      $stmt= $this->conn->prepare("UPDATE blogs SET title=?, content=?, overview=? WHERE id=?");
+      $stmt->execute([$title, $content, $overview,$id]);
+      echo "Record updated successfully";
+    }catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
   }
 
   public function deleteBlog(int $id){
 
     try{
-      
+
       $sql = "DELETE FROM blogs WHERE id=?";
       $stmt= $this->conn->prepare($sql);
       $stmt->execute([$id]);

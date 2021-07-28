@@ -1,21 +1,21 @@
 <?php 
 
-session_start();
-require_once '../vendor/autoload.php';
+  session_start();
+  require_once '../vendor/autoload.php';
 
-use App\Classes\Blog;
+  use App\Classes\Blog;
 
-$userId = $_SESSION["user"]["id"];
-$blog = new Blog($userId);
+  $userId = $_SESSION["user"]["id"];
+  $blog = new Blog($userId);
 
-if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"])){
+  if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"])){
 
-  $blog->addBlog($_POST["title"],$_POST["content"],$_POST["overview"]);
-}
+    $blog->addBlog($_POST["title"],$_POST["content"],$_POST["overview"]);
+  }
 
- $blogs = json_decode(json_encode($blog->getBlog()), true);
+ 
 
-
+  $blogs = json_decode(json_encode($blog->getBlog()), true);
 
 ?>
 
@@ -37,19 +37,23 @@ if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"
 <div>
   
   <?php foreach( $blogs as $value ){
-  // print_r($value);
     
       $id = $value["id"];
       $title=$value["title"];
       $content = $value["content"];
       $overview = $value["overview"];
+
+      $_SESSION["article"]= $value;
+
       echo "<p>$title</p>";
       echo "<p>$content</p>";
       echo "<p>$overview</p>";
       echo "<a href='../CRUD/DeleteBlog.php?id=$id&userId=$userId'>Delete</a>";
+      echo "<a href='../CRUD/UpdateBlog.php?userId=$userId'>Update</a>";
+      
      
-
-  
   }?>
 
 </div>
+
+
