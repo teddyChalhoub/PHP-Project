@@ -90,7 +90,7 @@ public function login(string $username,string $pass){
 
     if ($user && password_verify($pass, $user['password']))
     {
-        echo "Successfully Logged in";
+        header('Location: ./views/homePage.php');
     } else {
         echo "invalid";
     }

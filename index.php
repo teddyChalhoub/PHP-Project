@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 require_once 'vendor/autoload.php';
 
 
 use App\Classes\User;
+
 
 if(isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password"])){
 
