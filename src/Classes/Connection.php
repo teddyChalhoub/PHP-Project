@@ -9,10 +9,10 @@ class Connection{
 
   public function connect(){
     
-    $servername = "";
-    $username = "";
-    $password = "";
-    $db = "";
+    $servername = "localhost";
+    $username = "admin";
+    $password = "tyt1eor2dua3";
+    $db = "PHPDB";
     
     try {
       $conn = new PDO("mysql:host=$servername;dbname=$db", $username, $password);

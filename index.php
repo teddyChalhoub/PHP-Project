@@ -2,9 +2,11 @@
 
 require_once 'vendor/autoload.php';
 
+
 use App\Classes\User;
 
 if(isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password"])){
+
   $user = new User();
   $user->register($_POST["username"],$_POST["email"],$_POST["password"]);
 }

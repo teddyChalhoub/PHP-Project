@@ -5,7 +5,6 @@ namespace App\Classes;
 use App\Classes\Connection;
 use PDO;
 use PDOException;
-use PDORow;
 
 class User{
 
@@ -44,8 +43,8 @@ class User{
 
   
       $user = $this->fetchByUser($username);
-      $email = $this->fetchByEmail($email);
-      if($user || $email) throw new PDOException("Already registered");
+      $mail= $this->fetchByEmail($email);
+      if($user || $mail) throw new PDOException("Already registered");
 
     $uppercase = preg_match('@[A-Z]@', $pass);
     $lowercase = preg_match('@[a-z]@', $pass);
@@ -79,24 +78,24 @@ if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($pass) < 8
 
 public function login(string $username,string $pass){
 
-  $pattern = "/@/";
+    $pattern = "/@/";
 
-  if(preg_match($pattern,$username)){
-    echo "email";
-    $user = $this->fetchByEmail($username);
-  }else{
-    echo "user";
-  $user = $this->fetchByUser($username);
+    if(preg_match($pattern,$username)){
+      echo "email";
+      $user = $this->fetchByEmail($username);
+    }else{
+      echo "user";
+    $user = $this->fetchByUser($username);
+    }
+
+    if ($user && password_verify($pass, $user['password']))
+    {
+        echo "Successfully Logged in";
+    } else {
+        echo "invalid";
+    }
+
   }
-
-  if ($user && password_verify($pass, $user['password']))
-  {
-      echo "Successfully Logged in";
-  } else {
-      echo "invalid";
-  }
-
-}
 
 
 }
