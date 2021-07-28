@@ -12,7 +12,6 @@ if(isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password
   $user->register($_POST["username"],$_POST["email"],$_POST["password"]);
 }
 
-
 if(isset($_POST["user"])&& isset($_POST["pass"])){
   $user = new User();
   $user->login($_POST["user"],$_POST["pass"]);

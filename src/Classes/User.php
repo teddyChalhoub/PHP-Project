@@ -46,14 +46,14 @@ class User{
       $mail= $this->fetchByEmail($email);
       if($user || $mail) throw new PDOException("Already registered");
 
-    $uppercase = preg_match('@[A-Z]@', $pass);
-    $lowercase = preg_match('@[a-z]@', $pass);
-    $number    = preg_match('@[0-9]@', $pass);
-    $specialChars = preg_match('@[^\w]@', $pass);
+      $uppercase = preg_match('@[A-Z]@', $pass);
+      $lowercase = preg_match('@[a-z]@', $pass);
+      $number    = preg_match('@[0-9]@', $pass);
+      $specialChars = preg_match('@[^\w]@', $pass);
 
-if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($pass) < 8) {
-    throw new PDOException( 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.');
-}
+      if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($pass) < 8) {
+          throw new PDOException( 'Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.');
+      }
 
       $hash_pass = password_hash($pass,PASSWORD_DEFAULT);
 
@@ -72,11 +72,12 @@ if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($pass) < 8
 
     return null;
 
-
 }
 
 
 public function login(string $username,string $pass){
+
+  session_start();
 
     $pattern = "/@/";
 
@@ -87,6 +88,8 @@ public function login(string $username,string $pass){
       echo "user";
     $user = $this->fetchByUser($username);
     }
+
+    $_SESSION["user"] = $user;
 
     if ($user && password_verify($pass, $user['password']))
     {
@@ -99,10 +102,5 @@ public function login(string $username,string $pass){
 
 
 }
-
-
-
-
-
 
 ?>

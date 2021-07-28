@@ -1,19 +1,23 @@
 <?php 
 
+session_start();
 require_once '../vendor/autoload.php';
 
 use App\Classes\Blog;
 
+$userId = $_SESSION["user"]["id"];
+$blog = new Blog($userId);
 
 if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"])){
 
-  $blog = new Blog();
   $blog->addBlog($_POST["title"],$_POST["content"],$_POST["overview"]);
-
 }
 
-?>
+ $blogs = json_decode(json_encode($blog->getBlog()), true);
 
+
+
+?>
 
 <form action="" method="post">
 
@@ -24,8 +28,28 @@ if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"
 <input type="text" id="content" name="content" />
 
 <Label for="overview">Overview</Label>
-<input type="text" id="overview" name="overview" />
+<input type="text" id="overview" name="overview"/>
 
-<input type="submit" id="title" name="title" value="Add"/>
+<input type="submit" value="Add"/>
 
 </form>
+
+<div>
+  
+  <?php foreach( $blogs as $value ){
+  // print_r($value);
+    
+      $id = $value["id"];
+      $title=$value["title"];
+      $content = $value["content"];
+      $overview = $value["overview"];
+      echo "<p>$title</p>";
+      echo "<p>$content</p>";
+      echo "<p>$overview</p>";
+      echo "<a href='../CRUD/DeleteBlog.php?id=$id&userId=$userId'>Delete</a>";
+     
+
+  
+  }?>
+
+</div>
