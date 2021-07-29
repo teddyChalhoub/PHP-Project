@@ -25,24 +25,27 @@
 
 ?>
 
+<html>
+<head>
+     <meta charset="utf-8">
+          <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+        </head>
+  <body>
 <form action="" method="post">
 
 <Label for="title">Title</Label>
-<input type="text" id="title" name="title" />
-
-<Label for="content">Content</Label>
-<input type="text" id="content" name="content" />
+<input type="text" id="title" name="title"/>
 
 <Label for="overview">Overview</Label>
-<input type="text" id="overview" name="overview"/>
+<input type="text" id="overview" name="overview" />
 
-<input type="submit" name="Add"  value="Add"/>
-<?php 
+<input type="submit" name="Add"/>
 
-for($i=1;$i<= ceil($count_pages/10);$i++){
-  echo "<input type='submit' name='page' value=$i />";
-} 
-?>
+<div >
+  <textarea type="text" id="editor" name="content">
+  </textarea>
+</div>
+
 </form>
 
 <div>
@@ -55,7 +58,7 @@ for($i=1;$i<= ceil($count_pages/10);$i++){
       $overview = $value["overview"];
       $datePublish=$value["created_at"];
 
-      $_SESSION["article"]= $value;
+      // $_SESSION["article"]= $value;
 
       echo "<p>$title</p>";
       echo "<p>$content</p>";
@@ -68,5 +71,28 @@ for($i=1;$i<= ceil($count_pages/10);$i++){
   }?>
 
 </div>
+<form  method="post">
+<?php 
+for($i=1;$i<= ceil($count_pages/10);$i++){
+  echo "<input type='submit' name='page' value=$i />";
+} 
+?>
+</form>
+ <script>
+    ClassicEditor
+       .create( document.querySelector( '#editor' ) )
+           .then( editor => {
+                  console.log( editor );
+             } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+</body>
+</html>
+
+
+
+
 
 
