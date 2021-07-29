@@ -62,16 +62,12 @@
       $overview = $value["overview"];
       $datePublish=$value["created_at"];
 
-      // $_SESSION["article"]= $value;
-
       echo "<p>$title</p>";
       echo "<p>$content</p>";
       echo "<p>$overview</p>";
       echo "<p>$datePublish</p>";
       echo "<a href='../CRUD/DeleteBlog.php?id=$id&userId=$userId'>Delete</a>";
       echo "<a href='../CRUD/UpdateBlog.php?id=$id&userId=$userId'>Update</a>";
-      
-     
   }?>
 
 </div>
@@ -91,7 +87,7 @@ for($i=1;$i<= ceil($count_pages/10);$i++){
             .catch( error => {
                 console.error( error );
             } );
-    </script>
+ </script>
 </body>
 </html>
 
