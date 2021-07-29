@@ -8,13 +8,20 @@
   $userId = $_SESSION["user"]["id"];
   $blog = new Blog($userId);
 
-  if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"])){
+  if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"]) 
+  && isset($_POST["Add"])){
 
     $blog->addBlog($_POST["title"],$_POST["content"],$_POST["overview"]);
   }
 
+  if(isset($_POST["page"])){
+    $page = $_POST["page"];
+  }else{
+    $page = 1;
+  }
 
-  $blogs = json_decode(json_encode($blog->getBlog()), true);
+  $count_pages = json_decode(json_encode($blog->getBlogCount()), true)[0]["COUNT(*)"];
+  $blogs = json_decode(json_encode($blog->getBlogByPage($page,10)), true);
 
 ?>
 
@@ -29,8 +36,13 @@
 <Label for="overview">Overview</Label>
 <input type="text" id="overview" name="overview"/>
 
-<input type="submit" value="Add"/>
+<input type="submit" name="Add"  value="Add"/>
+<?php 
 
+for($i=1;$i<= ceil($count_pages/10);$i++){
+  echo "<input type='submit' name='page' value=$i />";
+} 
+?>
 </form>
 
 <div>
