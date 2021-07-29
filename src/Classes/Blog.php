@@ -20,7 +20,6 @@ class Blog{
 
   }
 
-
   public function addBlog(string $title, string $content, string $overview){
 
     try{

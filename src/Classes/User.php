@@ -33,11 +33,11 @@ class User{
 
     try {
 
-      $check_email = preg_match("/@/",$email);
-      $check_emailfor = preg_match("/./",$email);
+      $check_email = filter_var($email, FILTER_VALIDATE_EMAIL);
+     
 
 
-     if(!$check_email || !$check_emailfor) {
+     if(!$check_email) {
       throw new PDOException("Invalid email format");
     }
 
@@ -79,9 +79,9 @@ public function login(string $username,string $pass){
 
   session_start();
 
-    $pattern = "/@/";
+    $pattern = filter_var($username, FILTER_VALIDATE_EMAIL);
 
-    if(preg_match($pattern,$username)){
+    if($pattern){
       echo "email";
       $user = $this->fetchByEmail($username);
     }else{

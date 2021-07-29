@@ -13,7 +13,6 @@
     $blog->addBlog($_POST["title"],$_POST["content"],$_POST["overview"]);
   }
 
- 
 
   $blogs = json_decode(json_encode($blog->getBlog()), true);
 
@@ -42,14 +41,16 @@
       $title=$value["title"];
       $content = $value["content"];
       $overview = $value["overview"];
+      $datePublish=$value["created_at"];
 
       $_SESSION["article"]= $value;
 
       echo "<p>$title</p>";
       echo "<p>$content</p>";
       echo "<p>$overview</p>";
+      echo "<p>$datePublish</p>";
       echo "<a href='../CRUD/DeleteBlog.php?id=$id&userId=$userId'>Delete</a>";
-      echo "<a href='../CRUD/UpdateBlog.php?userId=$userId'>Update</a>";
+      echo "<a href='../CRUD/UpdateBlog.php?id=$id&userId=$userId'>Update</a>";
       
      
   }?>
