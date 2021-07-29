@@ -4,6 +4,7 @@
   require_once '../vendor/autoload.php';
 
   use App\Classes\Blog;
+  use App\Classes\Export;
 
   $userId = $_SESSION["user"]["id"];
   $blog = new Blog($userId);
@@ -22,6 +23,8 @@
 
   $count_pages = json_decode(json_encode($blog->getBlogCount()), true)[0]["COUNT(*)"];
   $blogs = json_decode(json_encode($blog->getBlogByPage($page,10)), true);
+  $blogData = json_decode(json_encode($blog->getBlog()), true);
+
 
 ?>
 
@@ -39,7 +42,8 @@
 <Label for="overview">Overview</Label>
 <input type="text" id="overview" name="overview" />
 
-<input type="submit" name="Add"/>
+<input type="submit" name="Add" value="Add"/>
+<a href='../CRUD/ExportData.php?id=$id&userId=$userId'>Export</a>
 
 <div >
   <textarea type="text" id="editor" name="content">

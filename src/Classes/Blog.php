@@ -66,7 +66,6 @@ class Blog{
       echo "<br>" . $e->getMessage();
     }
 
-
   }
 
 

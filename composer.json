@@ -13,6 +13,7 @@
   ],
   "require": {
     "vlucas/phpdotenv": "^5.3",
-    "froala/wysiwyg-editor-php-sdk": "^4.0"
+    "froala/wysiwyg-editor-php-sdk": "^4.0",
+    "phpoffice/phpspreadsheet": "^1.18"
   }
 }
