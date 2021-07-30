@@ -21,7 +21,7 @@ class FileUpload{
   }
 
   public function saveFile(string $filename,$size,string $format,string $path){
-    echo $size ."<br>";
+
     try{
       $sql = "INSERT INTO filesUploads (name, size, format,path,user_id) VALUES (:name,:size,:format,:path,:userId)";
       $stmt = $this->conn->prepare($sql);
@@ -49,6 +49,35 @@ class FileUpload{
     }
 
 
+  }
+
+    
+  public function unlinkFileById(int $fileId){
+
+    try{
+      $stmt = $this->conn->prepare("SELECT * FROM filesUploads WHERE id = ?");
+      $stmt->execute([$fileId]);
+      $file =  json_decode(json_encode($stmt->fetch(PDO::FETCH_OBJ)), true); 
+      unlink("../".$file["path"]);
+    }catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
+
+  }
+
+  public function deleteFile(int $id){
+
+    try{
+
+      $this->unlinkFileById($id);
+      $sql = "DELETE FROM filesUploads WHERE id=?";
+      $stmt= $this->conn->prepare($sql);
+      $stmt->execute([$id]);
+      print_r($stmt->fetch());
+      echo "Record deleted successfully";
+    }catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
   }
 
 

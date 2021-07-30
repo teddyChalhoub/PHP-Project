@@ -4,8 +4,8 @@ use App\Classes\FileUpload;
 
   session_start();
   require_once '../vendor/autoload.php';
-  // echo $_REQUEST["userId"];  
-  $userId = $_REQUEST["userId"];
+  echo $_SESSION["user"]["id"];  
+  $userId = $_SESSION["user"]["id"];
   $fileUpload = new FileUpload($userId);
 
 
@@ -23,19 +23,13 @@ use App\Classes\FileUpload;
     $path = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 
     // echo $name."<br>";
-    echo $size . "<br>";
+    // echo $size . "<br>";
     // echo $format."<br>";
     // echo $path ."<br>";
 
     // Check if file already exists
     if (file_exists($target_file)) {
       echo "Sorry, file already exists.";
-      $uploadOk = 0;
-    }
-
-    // Check file size
-    if ($_FILES["fileToUpload"]["size"] > 500000) {
-      echo "Sorry, your file is too large.";
       $uploadOk = 0;
     }
     
@@ -82,11 +76,11 @@ use App\Classes\FileUpload;
       $path = $value["path"];
 
       echo "<p>$name</p>";
-      echo "<p>$size</p>";
+      echo "<p>$size KB</p>";
       echo "<p>$format</p>";
       echo "<p>$path</p>";
-      echo "<a href='../CRUD/DeleteFile.php?id=$id&userId=$userId'>Delete</a>";
-      // echo "<a href='../CRUD/UpdateBlog.php?id=$id&userId=$userId'>Update</a>";
+      echo "<a href='../CRUD/files/DeleteFile.php?id=$id&userId=$userId'>Delete</a>";
+      echo "<a href='../CRUD/files/UpdateFile.php?id=$id&userId=$userId'>Update</a>";
   }?>
 
 </div>
