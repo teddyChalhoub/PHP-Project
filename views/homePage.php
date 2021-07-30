@@ -28,7 +28,7 @@
 
 ?>
 
-<html>
+<!-- <html>
 <head>
      <meta charset="utf-8">
           <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
@@ -90,8 +90,35 @@ for($i=1;$i<= ceil($count_pages/10);$i++){
             } );
  </script>
 </body>
-</html>
+</html> -->
 
+<html>
+  <header>
+  <link rel="stylesheet" href="./homepage.css">
+  </header>
+<nav>
+   <a href="#second"><img src="./cloud.png" /></a>
+   <a href="#third"><img src="./browser.png" /></a>
+ </nav>
+  
+<div class= 'container'> 
+  <section id= 'first'>
+    <h1>First</h1>
+  </section>
+  
+  <section id= 'second'>
+    <h1>Second</h1>
+  </section>
+  
+ <section id= 'third'>
+   <h1>Third</h1>
+  </section>
+  
+ <section id= 'fourth'>
+   <h1>Fourth</h1>
+  </section>
+</div>
+</html>
 
 
 

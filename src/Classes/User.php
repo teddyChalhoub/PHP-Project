@@ -72,7 +72,7 @@ class User{
       $stmt->bindParam("password", $hash_pass);
 
       $stmt->execute();
-
+      header('Location: ../../index.php');
       echo "New record created successfully";
     } catch(PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
