@@ -55,7 +55,6 @@ use App\Classes\FileUpload;
   }
   
   $count_pages = json_decode(json_encode($fileUpload->getFilesCount()), true)[0]["COUNT(*)"];
-  echo $count_pages;
   $files = json_decode(json_encode($fileUpload->getFileByPage($page,10)), true);
   $fileData = json_decode(json_encode($fileUpload->getFiles()), true);
 
@@ -87,7 +86,7 @@ use App\Classes\FileUpload;
       echo "<p>$format</p>";
       echo "<p>$path</p>";
       echo "<a href='../CRUD/files/DeleteFile.php?id=$id&userId=$userId'>Delete</a>";
-      echo "<a href='../CRUD/files/UpdateFile.php?id=$id&userId=$userId'>Update</a>";
+      echo "<a href='../CRUD/UpdateFile.php?id=$id&userId=$userId'>Update</a>";
   }?>
 
 </div>

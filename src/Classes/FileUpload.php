@@ -20,6 +20,8 @@ class FileUpload{
     $this->userId = $userId;
   }
 
+
+
   public function saveFile(string $filename,$size,string $format,string $path){
 
     try{
@@ -94,11 +96,13 @@ class FileUpload{
   }
 
   public function updateFile(int $id,string $name){
-    echo $name;
+    // echo $name;
     try{
-
-      $stmt= $this->conn->prepare("UPDATE filesUploads SET name = ? WHERE id=?");
-      $stmt->execute([$name,$id]);
+      $file = json_decode(json_encode( $this->getFileById($id)), true);
+      echo $file["format"];
+      rename($file["path"],"../uploads/".$name.".".$file["format"]);
+      $stmt= $this->conn->prepare("UPDATE filesUploads SET name = ?,path = ? WHERE id=?");
+      $stmt->execute([$name,"../uploads/".$name.".".$file["format"],$id]);
       echo "Record updated successfully";
     }catch(PDOException $e){
       echo "<br>" . $e->getMessage();

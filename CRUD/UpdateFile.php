@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 use App\Classes\FileUpload;
 
@@ -8,12 +8,12 @@ $userId = $_REQUEST["userId"];
 $file = new FileUpload($userId);
 
 $fileDis = json_decode(json_encode($file->getFileById($_REQUEST["id"])), true);
-echo $fileDis["name"];
+
 if(isset($_POST["name"])){
 
   $file->updateFile($_REQUEST["id"],$_POST["name"]);
 
-  header('Location: ../../views/cloud.php'); 
+  header('Location: ../views/cloud.php'); 
 
 }
 
@@ -26,7 +26,6 @@ if(isset($_POST["name"])){
 <form  method="post" enctype="multipart/form-data">
 
   <input type="text" name="name" id="name" value=<?php echo $fileDis["name"] ?>>
-  <!-- <input type="file" name="fileToUpload" id="fileToUpload"> -->
   <input type="submit" value="Update File name" name="submit">
 </form>
 
