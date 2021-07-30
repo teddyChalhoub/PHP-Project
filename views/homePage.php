@@ -4,9 +4,9 @@
   require_once '../vendor/autoload.php';
 
   use App\Classes\Blog;
-  use App\Classes\Export;
 
   $userId = $_SESSION["user"]["id"];
+  
   $blog = new Blog($userId);
 
   if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"]) 
@@ -44,6 +44,7 @@
 
 <input type="submit" name="Add" value="Add"/>
 <a href='../CRUD/ExportData.php?id=$id&userId=$userId'>Export</a>
+<?php echo "<a href='./cloud.php?userId=$userId'>Cloud</a>"?>
 
 <div >
   <textarea type="text" id="editor" name="content">
