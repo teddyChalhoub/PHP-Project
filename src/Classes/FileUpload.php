@@ -51,6 +51,30 @@ class FileUpload{
 
   }
 
+  public function getFileById(int $fileId){
+
+    try{
+      $stmt = $this->conn->prepare("SELECT * FROM filesUploads WHERE id = ?");
+      $stmt->execute([$fileId]);
+      return $stmt->fetch(PDO::FETCH_OBJ);
+    }catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
+
+  }
+
+  public function updateFile(int $id,string $name){
+    echo $name;
+    try{
+
+      $stmt= $this->conn->prepare("UPDATE filesUploads SET name = ? WHERE id=?");
+      $stmt->execute([$name,$id]);
+      echo "Record updated successfully";
+    }catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
+  }
+
     
   public function unlinkFileById(int $fileId){
 

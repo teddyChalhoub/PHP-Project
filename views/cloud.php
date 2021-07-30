@@ -13,7 +13,12 @@ use App\Classes\FileUpload;
 
     $target_dir = "../uploads/";
     $fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION));
-    $_FILES["fileToUpload"]["name"] = "teddy.". $fileType;
+
+    if(!empty($_POST["name"])){
+      $_FILES["fileToUpload"]["name"] = $_POST["name"].".". $fileType;
+    }
+      
+    echo "<br>".$_FILES["fileToUpload"]["name"]."<br>";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
 
@@ -62,6 +67,7 @@ use App\Classes\FileUpload;
 
 <form  method="post" enctype="multipart/form-data">
 
+  <input type="text" name="name" id="name">
   <input type="file" name="fileToUpload" id="fileToUpload">
   <input type="submit" value="Upload file" name="submit">
 </form>
