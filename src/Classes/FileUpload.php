@@ -51,6 +51,36 @@ class FileUpload{
 
   }
 
+  public function getFilesCount(){
+
+    try{
+      $stmt = $this->conn->prepare("SELECT COUNT(*) FROM filesUploads WHERE user_id = ?");
+      $stmt->execute([$this->userId]);
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
+
+
+  }
+
+  public function getFileByPage(int $page,int $nb_result_per_page){
+   
+    try{
+
+      $calc = ($page - 1) * $nb_result_per_page;
+      $stmt = $this->conn->prepare("SELECT * FROM filesUploads WHERE user_id = :userId LIMIT :page,:nb");
+      $stmt->bindParam(":userId",$this->userId,PDO::PARAM_INT);
+      $stmt->bindParam(":page",$calc,PDO::PARAM_INT);
+      $stmt->bindParam(":nb",$nb_result_per_page,PDO::PARAM_INT);
+      $stmt->execute();
+      return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+    }catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
+  }
+
   public function getFileById(int $fileId){
 
     try{

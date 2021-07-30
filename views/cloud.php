@@ -3,8 +3,8 @@
 use App\Classes\FileUpload;
 
   session_start();
+
   require_once '../vendor/autoload.php';
-  echo $_SESSION["user"]["id"];  
   $userId = $_SESSION["user"]["id"];
   $fileUpload = new FileUpload($userId);
 
@@ -17,8 +17,7 @@ use App\Classes\FileUpload;
     if(!empty($_POST["name"])){
       $_FILES["fileToUpload"]["name"] = $_POST["name"].".". $fileType;
     }
-      
-    echo "<br>".$_FILES["fileToUpload"]["name"]."<br>";
+
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
 
@@ -26,11 +25,6 @@ use App\Classes\FileUpload;
     $size = round($_FILES["fileToUpload"]["size"]/1024,2);
     $format = $fileType;
     $path = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
-    // echo $name."<br>";
-    // echo $size . "<br>";
-    // echo $format."<br>";
-    // echo $path ."<br>";
 
     // Check if file already exists
     if (file_exists($target_file)) {
@@ -54,9 +48,16 @@ use App\Classes\FileUpload;
     }
   }
 
+  if(isset($_POST["page"])){
+    $page = $_POST["page"];
+  }else{
+    $page = 1;
+  }
   
-  $files = json_decode(json_encode($fileUpload->getFiles()), true);
-  print_r($files);
+  $count_pages = json_decode(json_encode($fileUpload->getFilesCount()), true)[0]["COUNT(*)"];
+  echo $count_pages;
+  $files = json_decode(json_encode($fileUpload->getFileByPage($page,10)), true);
+  $fileData = json_decode(json_encode($fileUpload->getFiles()), true);
 
 ?>
 
@@ -90,5 +91,14 @@ use App\Classes\FileUpload;
   }?>
 
 </div>
+<form  method="post">
+
+<?php 
+for($i=1;$i<= ceil($count_pages/10);$i++){
+  echo "<input type='submit' name='page' value=$i />";
+} 
+?>
+
+</form>
 </body>
 </html>
