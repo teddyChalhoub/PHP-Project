@@ -19,10 +19,10 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
   }
   
 
-$sheet->setCellValue("A1","title");
-$sheet->setCellValue("B1","overview");
-$sheet->setCellValue("C1","content");
-$sheet->setCellValue("D1","created_at");
+  $sheet->setCellValue("A1","title");
+  $sheet->setCellValue("B1","overview");
+  $sheet->setCellValue("C1","content");
+  $sheet->setCellValue("D1","created_at");
 
  
 
@@ -30,6 +30,9 @@ $sheet->setCellValue("D1","created_at");
 
     $i = 2;
     foreach($row as $line){    
+
+      $line["content"] = strip_tags($line["content"]);
+      $line["content"] = html_entity_decode($line["content"]);
 
       $sheet->setCellValue("A".$i,$line["title"]);
       $sheet->setCellValue("B".$i,$line["overview"]);

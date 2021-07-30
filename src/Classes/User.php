@@ -18,15 +18,23 @@ class User{
   }
 
   public function fetchByUser($username){
-    $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
-    $stmt->execute([$username]);
-    return $stmt->fetch();
+    try{
+      $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
+      $stmt->execute([$username]);
+      return $stmt->fetch();
+    } catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
   }
 
   public function fetchByEmail($email){
-    $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    return $stmt->fetch();
+    try{
+      $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+      $stmt->execute([$email]);
+      return $stmt->fetch();
+    } catch(PDOException $e){
+      echo "<br>" . $e->getMessage();
+    }
   }
 
   public function register(string $username,string $email,string $pass){
