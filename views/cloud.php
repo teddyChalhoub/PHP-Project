@@ -4,48 +4,19 @@ use App\Classes\FileUpload;
 
   session_start();
 
+  print_r($_SESSION['user']);
+  if(!isset($_SESSION['user']) && empty($_SESSION['user'])){
+
+    header("Location: ../index.php");
+  
+  }
+
   require_once '../vendor/autoload.php';
   $userId = $_SESSION["user"]["id"];
   $fileUpload = new FileUpload($userId);
 
-
-  if(isset($_FILES["fileToUpload"]) && isset($_POST["submit"])){
-
-    $target_dir = "../uploads/";
-    $fileType = strtolower(pathinfo($_FILES["fileToUpload"]["name"],PATHINFO_EXTENSION));
-
-    if(!empty($_POST["name"])){
-      $_FILES["fileToUpload"]["name"] = $_POST["name"].".". $fileType;
-    }
-
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
-
-    $name = $_FILES["fileToUpload"]["name"];
-    $size = round($_FILES["fileToUpload"]["size"]/1024,2);
-    $format = $fileType;
-    $path = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-
-    // Check if file already exists
-    if (file_exists($target_file)) {
-      echo "Sorry, file already exists.";
-      $uploadOk = 0;
-    }
-    
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-      echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } else {
-   
-      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        $fileUpload->saveFile($name,$size,$format,$path);
-        echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-        // header("Location : ../views/cloud.php");
-      } else {
-        echo "Sorry, there was an error uploading your file.";
-      }
-    }
+  if($_REQUEST["Message"]){
+    echo $_REQUEST["Message"];
   }
 
   if(isset($_POST["page"])){
@@ -63,15 +34,13 @@ use App\Classes\FileUpload;
 
 <!DOCTYPE html>
 <html>
+  <head>
+  <link rel="stylesheet" href="./cloud.css">
+
+  </head>
 <body>
-
-<form  method="post" enctype="multipart/form-data">
-
-  <input type="text" name="name" id="name">
-  <input type="file" name="fileToUpload" id="fileToUpload">
-  <input type="submit" value="Upload file" name="submit">
-</form>
-<div>
+<div class="file__container">
+<div class="file__container__details">
   
   <?php foreach( $files as $value ){
     
@@ -81,23 +50,28 @@ use App\Classes\FileUpload;
       $format = $value["format"];
       $path = $value["path"];
 
+      echo "<div class='file__container__details--info'>";
       echo "<p>$name</p>";
       echo "<p>$size KB</p>";
-      echo "<p>$format</p>";
-      echo "<p>$path</p>";
-      echo "<a href='../CRUD/files/DeleteFile.php?id=$id&userId=$userId'>Delete</a>";
-      echo "<a href='../CRUD/UpdateFile.php?id=$id&userId=$userId'>Update</a>";
+      echo "<a href='../CRUD/files/DeleteFile.php?id=$id&userId=$userId'><img src='../icons/delete.png' /></a>";
+      echo "<a href='../CRUD/UpdateFile.php?id=$id&userId=$userId'><img src='../icons/update.png' /></a>";
+      echo "<a href='../CRUD/DownloadFile.php?id=$id&userId=$userId'><img src='../icons/download.png' /></a>";
+      echo "</div>";
   }?>
 
 </div>
 <form  method="post">
-
+<div class="pagination_btn">
 <?php 
 for($i=1;$i<= ceil($count_pages/10);$i++){
-  echo "<input type='submit' name='page' value=$i />";
+  echo "<input class='paginated--btn' type='submit' name='page' value=$i />";
 } 
 ?>
-
+</div>
+<div class="container__add--btn">
+<a href="../CRUD/AddFile.php">+</a>
+</div>
 </form>
+</div>
 </body>
 </html>

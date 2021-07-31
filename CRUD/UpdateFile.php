@@ -2,6 +2,7 @@
 
 require_once '../vendor/autoload.php';
 
+include "../views/sidebar.php";
 use App\Classes\FileUpload;
 
 $userId = $_REQUEST["userId"];
@@ -18,15 +19,27 @@ if(isset($_POST["name"])){
 }
 
 ?>
+<!DOCTYPE html>
 <html>
-<head>
-     <meta charset="utf-8">
-</head>
+  <head>
+  <link rel="stylesheet" href="../css/AddFile.css">
+
+  </head>
 <body>
+
 <form  method="post" enctype="multipart/form-data">
 
-  <input type="text" name="name" id="name" value=<?php echo $fileDis["name"] ?>>
-  <input type="submit" value="Update File name" name="submit">
+  <?php 
+  if(!empty($msg))
+  { 
+    echo"<p>$msgExist,$msg</p>";
+  
+  } 
+  ?>
+<label for="name">Name:</label><br>
+  <input type="text" name="name" id="name" value=<?php echo $fileDis["name"] ?> ><br>
+  <input type="submit" id="submit" value="Update file" name="submit">
+  </div>
 </form>
-
 </body>
+</html>

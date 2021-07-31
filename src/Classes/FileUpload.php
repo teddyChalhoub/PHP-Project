@@ -34,7 +34,7 @@ class FileUpload{
       $stmt->bindParam("userId", $this->userId);
 
       $stmt->execute();
-      echo "New record created successfully";
+      return "New record created successfully";
     } catch(PDOException $e) {
       echo $sql . "<br>" . $e->getMessage();
     }

@@ -85,7 +85,7 @@ class User{
 
 public function login(string $username,string $pass){
 
-  session_start();
+ 
 
     $pattern = filter_var($username, FILTER_VALIDATE_EMAIL);
 
@@ -97,10 +97,12 @@ public function login(string $username,string $pass){
     $user = $this->fetchByUser($username);
     }
 
-    $_SESSION["user"] = $user;
+   
 
     if ($user && password_verify($pass, $user['password']))
     {
+      session_start();
+      $_SESSION["user"] = $user;
         header('Location: ./views/homePage.php');
     } else {
         echo "invalid";

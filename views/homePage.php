@@ -33,30 +33,12 @@
 <html>
 <head>
      <meta charset="utf-8">
-          <!-- <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script> -->
           <link rel="stylesheet" href="./homepage.css">
         </head>
   <body>
 
 <div class="homepage_container">
-<!-- <form action="" method="post">
 
-<Label for="title">Title</Label>
-<input type="text" id="title" name="title"/>
-
-<Label for="overview">Overview</Label>
-<input type="text" id="overview" name="overview" />
-
-<input type="submit" name="Add" value="Add"/>
-<a href='../CRUD/ExportData.php?id=$id&userId=$userId'>Export</a>
-<?php echo "<a href='./cloud.php?userId=$userId'>Cloud</a>"?>
-
-<div >
-  <textarea type="text" id="editor" name="content">
-  </textarea>
-</div>
-
-</form> -->
 <div class="container__export--btn">
 <a href='../CRUD/ExportData.php?id=$id&userId=$userId'>Export</a>
 </div>
@@ -98,17 +80,6 @@ for($i=1;$i<= ceil($count_pages/10);$i++){
 <a href="../CRUD/AddBlog.php">+</a>
 </div>
 </div>
-
- <!-- <script>
-    ClassicEditor
-       .create( document.querySelector( '#editor' ) )
-           .then( editor => {
-                  console.log( editor );
-             } )
-            .catch( error => {
-                console.error( error );
-            } );
- </script> -->
 </body>
 </html>
 
