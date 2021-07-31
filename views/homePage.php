@@ -1,5 +1,7 @@
 <?php 
 
+  include "sidebar.php";
+
   session_start();
   require_once '../vendor/autoload.php';
 
@@ -9,11 +11,11 @@
   
   $blog = new Blog($userId);
 
-  if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"]) 
-  && isset($_POST["Add"])){
+  // if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"]) 
+  // && isset($_POST["Add"])){
 
-    $blog->addBlog($_POST["title"],$_POST["content"],$_POST["overview"]);
-  }
+  //   $blog->addBlog($_POST["title"],$_POST["content"],$_POST["overview"]);
+  // }
 
   if(isset($_POST["page"])){
     $page = $_POST["page"];
@@ -28,13 +30,16 @@
 
 ?>
 
-<!-- <html>
+<html>
 <head>
      <meta charset="utf-8">
-          <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+          <!-- <script src="https://cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script> -->
+          <link rel="stylesheet" href="./homepage.css">
         </head>
   <body>
-<form action="" method="post">
+
+<div class="homepage_container">
+<!-- <form action="" method="post">
 
 <Label for="title">Title</Label>
 <input type="text" id="title" name="title"/>
@@ -51,8 +56,10 @@
   </textarea>
 </div>
 
-</form>
-
+</form> -->
+<div class="container__export--btn">
+<a href='../CRUD/ExportData.php?id=$id&userId=$userId'>Export</a>
+</div>
 <div>
   
   <?php foreach( $blogs as $value ){
@@ -63,23 +70,36 @@
       $overview = $value["overview"];
       $datePublish=$value["created_at"];
 
-      echo "<p>$title</p>";
+      echo "<div class='card_design'>";
+      echo "<p>Title: $title</p>";
+      echo "<p>Overview: $overview</p>";
+      echo "<div class='card_design--content'>";
       echo "<p>$content</p>";
-      echo "<p>$overview</p>";
+      echo "<div class='card_design--btn'>";
+      echo "<a href='../CRUD/DeleteBlog.php?id=$id&userId=$userId'><img src='../icons/delete.png' /></a>";
+      echo "<a href='../CRUD/UpdateBlog.php?id=$id&userId=$userId'><img src='../icons/update.png' /></a>";
+      echo "</div>";
+      echo "</div>";
       echo "<p>$datePublish</p>";
-      echo "<a href='../CRUD/DeleteBlog.php?id=$id&userId=$userId'>Delete</a>";
-      echo "<a href='../CRUD/UpdateBlog.php?id=$id&userId=$userId'>Update</a>";
+      echo "</div>";
   }?>
 
 </div>
 <form  method="post">
+  <div class="pagination_btn">
 <?php 
 for($i=1;$i<= ceil($count_pages/10);$i++){
   echo "<input type='submit' name='page' value=$i />";
 } 
 ?>
+</div>
 </form>
- <script>
+<div class="container__add--btn">
+<a href="../CRUD/AddBlog.php">+</a>
+</div>
+</div>
+
+ <!-- <script>
     ClassicEditor
        .create( document.querySelector( '#editor' ) )
            .then( editor => {
@@ -88,37 +108,10 @@ for($i=1;$i<= ceil($count_pages/10);$i++){
             .catch( error => {
                 console.error( error );
             } );
- </script>
+ </script> -->
 </body>
-</html> -->
-
-<html>
-  <header>
-  <link rel="stylesheet" href="./homepage.css">
-  </header>
-<nav>
-   <a href="#second"><img src="./cloud.png" /></a>
-   <a href="#third"><img src="./browser.png" /></a>
- </nav>
-  
-<div class= 'container'> 
-  <section id= 'first'>
-    <h1>First</h1>
-  </section>
-  
-  <section id= 'second'>
-    <h1>Second</h1>
-  </section>
-  
- <section id= 'third'>
-   <h1>Third</h1>
-  </section>
-  
- <section id= 'fourth'>
-   <h1>Fourth</h1>
-  </section>
-</div>
 </html>
+
 
 
 

@@ -1,5 +1,5 @@
 <?php
-
+include "sidebar.php";
 use App\Classes\FileUpload;
 
   session_start();

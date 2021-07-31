@@ -21,9 +21,9 @@ if(isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["password
 ?>
 
 <html>
-<header>
+<head>
 <link rel="stylesheet" href="./index.css">
-</header>
+</head>
 <div class="login-wrap">
   <form method="post">
 	<div class="login-html">

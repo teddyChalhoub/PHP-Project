@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #4d6fbe;
+}
+
+body {
+  background: #b4dce2;
+  height: 100vh;
+}
+
+.add_blog_container {
+  width: 83%;
+  margin: auto;
+  padding: 1rem;
+  background: white;
+}
+
+.add_blog_container input {
+  margin: 1rem;
+  border: 0;
+  background: #dafaf2;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+}
+
+.add_blog_container input:focus {
+  outline: 0;
+}
+
+.add_blog_container .add_btn {
+  padding: 0.5rem 2rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: #76aada;
+  color: #fff;
+}
+
+.editor {
+  height: 100vh;
+  margin: 1rem 0;
+}

@@ -1,22 +1,19 @@
-<?php 
-
+<?php
 session_start();
 
+use App\Classes\Blog;
 
 require_once '../vendor/autoload.php';
 include "../views/sidebar.php";
 
-use App\Classes\Blog;
-
-$userId = $_REQUEST["userId"];
-
+$userId = $_SESSION["user"]["id"];
+  
 $blog = new Blog($userId);
 
-$blogDis = json_decode(json_encode($blog->getBlogById($_REQUEST["id"])), true);
+if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"]) 
+&& isset($_POST["Add"])){
 
-if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"])){
-
-  $blog->updateBlog($_REQUEST["id"],$_POST["title"],$_POST["content"],$_POST["overview"]);
+  $blog->addBlog($_POST["title"],$_POST["content"],$_POST["overview"]);
 
  header('Location: ../views/homePage.php'); 
 }
@@ -38,16 +35,15 @@ if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"
   <form action="" method="post">
 
   <Label for="title">Title</Label>
-  <input type="text" id="title" name="title"  value=<?php echo $blogDis["title"]; ?>/>
+  <input type="text" id="title" name="title"/>
 
   <Label for="overview">Overview</Label>
-  <input type="text" id="overview" name="overview" value=<?php echo $blogDis["overview"];?>/>
+  <input type="text" id="overview" name="overview" />
 
-  <input class="add_btn" type="submit" name="Add" value="Update"/>
+  <input class="add_btn" type="submit" name="Add" value="Add"/>
 
   <div class="editor">
     <textarea type="text" id="editor" name="content">
-    <?php echo $blogDis["content"]?>
     </textarea>
   </div>
 
