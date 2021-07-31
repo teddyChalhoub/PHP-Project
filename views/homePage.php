@@ -1,21 +1,21 @@
 <?php 
 
   include "sidebar.php";
-
+  use App\Classes\Blog;
   session_start();
   require_once '../vendor/autoload.php';
 
-  use App\Classes\Blog;
+  if(!isset($_SESSION['user']) && empty($_SESSION['user'])){
+
+    header("Location: ../index.php");
+  
+  }
+
+
 
   $userId = $_SESSION["user"]["id"];
   
   $blog = new Blog($userId);
-
-  // if(isset($_POST["title"]) && isset($_POST["content"]) && isset($_POST["overview"]) 
-  // && isset($_POST["Add"])){
-
-  //   $blog->addBlog($_POST["title"],$_POST["content"],$_POST["overview"]);
-  // }
 
   if(isset($_POST["page"])){
     $page = $_POST["page"];
@@ -26,7 +26,6 @@
   $count_pages = json_decode(json_encode($blog->getBlogCount()), true)[0]["COUNT(*)"];
   $blogs = json_decode(json_encode($blog->getBlogByPage($page,10)), true);
   $blogData = json_decode(json_encode($blog->getBlog()), true);
-
 
 ?>
 

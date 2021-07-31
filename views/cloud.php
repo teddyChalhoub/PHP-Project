@@ -4,12 +4,13 @@ use App\Classes\FileUpload;
 
   session_start();
 
-  print_r($_SESSION['user']);
+
   if(!isset($_SESSION['user']) && empty($_SESSION['user'])){
 
     header("Location: ../index.php");
   
   }
+
 
   require_once '../vendor/autoload.php';
   $userId = $_SESSION["user"]["id"];
@@ -28,7 +29,7 @@ use App\Classes\FileUpload;
   $count_pages = json_decode(json_encode($fileUpload->getFilesCount()), true)[0]["COUNT(*)"];
   $files = json_decode(json_encode($fileUpload->getFileByPage($page,10)), true);
   $fileData = json_decode(json_encode($fileUpload->getFiles()), true);
-
+ 
 ?>
 
 
